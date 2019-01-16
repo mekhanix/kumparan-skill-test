@@ -21,6 +21,5 @@ class News extends Model
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'news_topic');
-        // ->as('relationship');
     }
 }

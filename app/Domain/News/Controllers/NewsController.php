@@ -24,7 +24,7 @@ class NewsController extends Controller
             'title' => 'required|min:5|max:255',
             'header' => 'required|min:5|max:255',
             'content' => 'required',
-            'status' => 'required|in:draft, deleted, publish',
+            'status' => 'required|in:draft,deleted,publish',
             'topics' => 'required|array',
         ]);
 
