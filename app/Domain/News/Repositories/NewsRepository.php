@@ -10,9 +10,26 @@ class NewsRepository
         return News::with(['topics:topic_id,description']);
     }
 
-    public function getNewsList()
+    public function getNewsList(array $payload)
     {
-        $news = $this->newsWithTopics()->orderBy('created_at', 'DESC')->get();
+        $status = !empty($payload['status']) ? $payload['status'] : null;
+        $topics = null;
+        if (!empty($payload['topics'])) 
+        {
+            $topics = explode(',', $payload['topics']);
+        }
+
+        $news = $this->newsWithTopics()
+            ->orderBy('created_at', 'DESC')
+            ->when($status, function ($query, $status) {
+                return $query->where('status', $status);
+            })
+            ->when($topics, function ($query, $topics) {
+                return $query->whereHas('topics', function($q) use($topics) {
+                    $q->whereIn('topic_id', $topics);
+                });
+            })
+            ->get();
         return $news;
     }
 

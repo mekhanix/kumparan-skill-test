@@ -12,9 +12,9 @@ class NewsController extends Controller
         $this->service = $service;
     }
 
-    public function list()
+    public function list(Request $request)
     {
-        $news = $this->service->getNewsList();
+        $news = $this->service->getNewsList($request);
         return response()->json($news);
     }
 
