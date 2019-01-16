@@ -11,6 +11,12 @@ class NewsRepository
         return $news;
     }
 
+    public function getNewsById($id)
+    {
+        $news = News::findOrFail($id);
+        return $news;
+    }
+
     public function insertOneNews(array $payload)
     {
         $news = new News;

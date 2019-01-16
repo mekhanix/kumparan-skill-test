@@ -52,6 +52,14 @@ class Handler extends ExceptionHandler
                 'statusCode' => $exception->getStatusCode(),
             ], $exception->getStatusCode());
         }
+        elseif ($exception instanceof ModelNotFoundException) 
+        {
+            return response()->json([
+                'message' => $exception->getIds(),
+                'statusCode' => 404,
+            ], 404);
+        }
+
         return parent::render($request, $exception);
     }
 }

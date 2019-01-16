@@ -18,6 +18,12 @@ class NewsController extends Controller
         return response()->json($list);
     }
 
+    public function show($id)
+    {
+        $news = $this->service->getOneNews($id);
+        return response()->json($news);
+    }
+
     public function add(Request $request)
     {
         $this->validate($request, [
