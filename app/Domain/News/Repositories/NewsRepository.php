@@ -5,15 +5,20 @@ use App\Domain\News\Events\NewsDeleted;
 
 class NewsRepository
 {
+    private function newsWithTopics()
+    {
+        return News::with(['topics:topic_id,description']);
+    }
+
     public function getNewsList()
     {
-        $news = News::with(['topics:topic_id'])->orderBy('created_at', 'DESC')->get();
+        $news = $this->newsWithTopics()->orderBy('created_at', 'DESC')->get();
         return $news;
     }
 
     public function getNewsById($id)
     {
-        $news = News::findOrFail($id);
+        $news = $this->newsWithTopics()->findOrFail($id);
         return $news;
     }
 
@@ -32,7 +37,7 @@ class NewsRepository
     public function removeOneNews($id)
     {
         $news = News::findOrFail($id);
-        $news->delete();        
+        $news->delete();
         event(new NewsDeleted($news));
         return $news;
     }

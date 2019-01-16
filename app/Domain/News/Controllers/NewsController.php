@@ -14,8 +14,8 @@ class NewsController extends Controller
 
     public function list()
     {
-        $list = $this->service->getNewsList();
-        return response()->json($list);
+        $news = $this->service->getNewsList();
+        return response()->json($news);
     }
 
     public function show($id)
