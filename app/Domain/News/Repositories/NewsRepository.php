@@ -20,7 +20,7 @@ class NewsRepository
         }
 
         $news = $this->newsWithTopics()
-            ->orderBy('created_at', 'DESC')
+            ->withTrashed()
             ->when($status, function ($query, $status) {
                 return $query->where('status', $status);
             })
@@ -29,6 +29,7 @@ class NewsRepository
                     $q->whereIn('topic_id', $topics);
                 });
             })
+            ->orderBy('created_at', 'DESC')
             ->get();
         return $news;
     }

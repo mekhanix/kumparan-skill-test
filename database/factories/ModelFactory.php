@@ -1,4 +1,6 @@
 <?php
+use App\Domain\News\News;
+use App\Domain\Topic\Topic;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,5 +17,19 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
+    ];
+});
+$factory->define(Topic::class, function ($faker) {
+    return [
+        'topic_name' => $faker->bs,
+        'description' => $faker->catchPhrase,
+    ];
+});
+$factory->define(News::class, function ($faker) {
+    return [
+        'title' => $faker->catchPhrase,
+        'header' => $faker->catchPhrase,
+        'content' => $faker->text,
+        'status' => $faker->randomElement($array = ['draft', 'deleted', 'publish']),
     ];
 });
