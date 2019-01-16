@@ -16,10 +16,11 @@ class News extends Model
     protected $dispatchesEvents = [
         'deleted' => NewsDeleted::class,
     ];
+    protected $hidden = ['pivot'];
 
     public function topics()
     {
-        return $this->belongsToMany(Topic::class, 'news_topic')
-            ->withPivot('news_id', 'topic_id');
+        return $this->belongsToMany(Topic::class, 'news_topic');
+        // ->as('relationship');
     }
 }

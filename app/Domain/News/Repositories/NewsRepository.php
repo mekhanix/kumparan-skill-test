@@ -7,7 +7,7 @@ class NewsRepository
 {
     public function getNewsList()
     {
-        $news = News::with(['topics'])->orderBy('created_at', 'DESC')->get();
+        $news = News::with(['topics:topic_id'])->orderBy('created_at', 'DESC')->get();
         return $news;
     }
 

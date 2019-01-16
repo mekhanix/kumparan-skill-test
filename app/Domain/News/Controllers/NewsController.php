@@ -29,7 +29,7 @@ class NewsController extends Controller
         ]);
 
         $news = $this->service->insertOneNews($request);
-        return response()->json($news);
+        return response()->json($news, 201);
     }
 
     public function remove($id)
