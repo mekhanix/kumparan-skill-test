@@ -19,6 +19,8 @@ class NewsTest extends TestCase
             }
             $news->save();
         }
+        //supress warning
+        $this->assertEquals(true, true);
     }
 
     public function testGetAllNews()

@@ -22,6 +22,12 @@ class NewsService
         return $this->repository->getNewsById($id);
     }
 
+    public function updateNews($request, $id)
+    {
+        $payload = $request->all();
+        return $this->repository->updateNewsById($payload, $id);
+    }
+
     public function insertOneNews($request)
     {
         $payload = $request->all();

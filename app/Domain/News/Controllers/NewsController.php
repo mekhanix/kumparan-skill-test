@@ -24,6 +24,18 @@ class NewsController extends Controller
         return response()->json($news);
     }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'status' => 'in:draft,deleted,publish',
+            'topics' => 'array|min:1',
+            'topics.*' => 'int'
+        ]);
+        
+        $news = $this->service->updateNews($request, $id);
+        return response()->json($news);
+    }
+
     public function add(Request $request)
     {
         $this->validate($request, [
@@ -31,7 +43,8 @@ class NewsController extends Controller
             'header' => 'required|min:5|max:255',
             'content' => 'required',
             'status' => 'required|in:draft,deleted,publish',
-            'topics' => 'required|array',
+            'topics' => 'required|array|min:1',
+            'topics.*' => 'int'
         ]);
 
         $news = $this->service->insertOneNews($request);
