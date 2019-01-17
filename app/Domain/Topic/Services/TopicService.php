@@ -21,6 +21,13 @@ class TopicService
         return $this->repository->getTopicById($id);
     }
 
+    public function updateTopic($request, $id)
+    {
+        $payload = $request->all();
+        $result = $this->repository->updateTopicById($payload, $id);
+        return $result;
+    }
+
     public function insertOneTopic($request)
     {
         $payload = $request->all();
@@ -35,6 +42,7 @@ class TopicService
         {
             return [
                 'id' => $deleted->id,
+                'topic_name' => $deleted->topic_name,
                 'deleted_at' => $deleted->deleted_at,
             ];
         }

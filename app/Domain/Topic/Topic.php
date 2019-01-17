@@ -12,6 +12,7 @@ class Topic extends Model
     protected $table = 'topics';
     protected $hidden = ['pivot'];
     protected $dates = ['deleted_at'];
+    protected $fillable = ['topic_name', 'description'];
     
     public function news()
     {
