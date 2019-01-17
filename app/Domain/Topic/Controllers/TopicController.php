@@ -27,7 +27,7 @@ class TopicController extends Controller
     public function add(Request $request)
     {
         $this->validate($request, [
-            'topic_name' => 'required|min:5|max:255',
+            'topic_name' => 'required|min:5|max:255|unique:topics,topic_name',
             'description' => 'required|min:5|max:255'
         ]);
         
