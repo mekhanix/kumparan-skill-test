@@ -7,7 +7,7 @@ class NewsRepository
 {
     private function newsWithTopics()
     {
-        return News::with(['topics:topic_id,description']);
+        return News::with(['topics:topic_id,topic_name,description']);
     }
 
     public function getNewsList(array $payload)
@@ -38,6 +38,21 @@ class NewsRepository
     {
         $news = $this->newsWithTopics()->findOrFail($id);
         return $news;
+    }
+
+    public function updateNewsById(array $payload, $id)
+    {
+        $topics = isset($payload['topics']) ? $payload['topics'] : null;
+        $news = $this->newsWithTopics()->findOrFail($id);
+        $news->fill($payload);
+        $news->save();
+
+        if ($topics)
+        {
+            $news->topics()->detach();
+            $news->topics()->sync($topics);
+        }
+        return $this->newsWithTopics()->findOrFail($news->id);
     }
 
     public function insertOneNews(array $payload)

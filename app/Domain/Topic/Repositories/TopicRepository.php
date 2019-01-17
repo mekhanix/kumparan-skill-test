@@ -25,11 +25,18 @@ class TopicRepository
         return $topic;
     }
 
+    public function updateTopicById($payload, $id)
+    {
+        $topic = Topic::findOrFail($id);
+        $topic->fill($payload);
+        $topic->save();
+        return $topic;
+    }
+
     public function removeOneTopic($id)
     {
         $topic = Topic::findOrFail($id);
-        $topic->delete();        
-        // event(new NewsDeleted($news));
+        $topic->delete();
         return $topic;
     }
 

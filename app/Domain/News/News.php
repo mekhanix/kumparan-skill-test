@@ -17,7 +17,8 @@ class News extends Model
         'deleted' => NewsDeleted::class,
     ];
     protected $hidden = ['pivot'];
-
+    protected $fillable = ['title', 'header', 'content', 'status'];
+    
     public function topics()
     {
         return $this->belongsToMany(Topic::class, 'news_topic');
