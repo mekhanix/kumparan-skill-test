@@ -78,8 +78,7 @@ class NewsTest extends TestCase
 
     public function testCreateNewsValidation()
     {
-        $response = $this->call('POST', 'v1/news', 
-            [
+        $response = $this->call('POST', 'v1/news', [
                 'title' => 'Testing',
                 'header' => 'Tested Test',
                 'content' =>    "Lorem Ipsum is simply dummy 
@@ -94,5 +93,18 @@ class NewsTest extends TestCase
     {
         $response = $this->call('DELETE', 'v1/news/1');
         $this->assertEquals(202, $response->status());
+    }
+
+    public function testUpdateNews()
+    {
+        $response = $this->call('PATCH', 'v1/news/5',[
+            'title' => 'PHPTest',
+            'header' => 'for testing purpose',
+            'topics' => [2,3]
+        ]);
+
+        $this->assertEquals(200, $response->status());
+        $this->seeJson(['topic_id' => 2, 'topic_id' => 3]);
+        $this->seeJson(['title' => 'PHPTest']);
     }
 }
