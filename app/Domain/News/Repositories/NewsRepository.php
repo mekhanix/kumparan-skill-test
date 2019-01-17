@@ -7,7 +7,7 @@ class NewsRepository
 {
     private function newsWithTopics()
     {
-        return News::with(['topics:topic_id,description']);
+        return News::with(['topics:topic_id,topic_name,description']);
     }
 
     public function getNewsList(array $payload)
