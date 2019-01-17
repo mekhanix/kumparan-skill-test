@@ -1,6 +1,7 @@
 <?php
 $router->group(['prefix' => 'v1/news'], function () use ($router) {
     $router->get('/', 'NewsController@list');
-    $router->post('add', 'NewsController@add');
-    $router->delete('remove/{id}', 'NewsController@remove');
+    $router->get('/{id:[0-9]+}', 'NewsController@show');
+    $router->post('/', 'NewsController@add');
+    $router->delete('/{id:[0-9]+}', 'NewsController@remove');
 });

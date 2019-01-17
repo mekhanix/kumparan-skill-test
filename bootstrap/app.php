@@ -23,7 +23,7 @@ $app = new Laravel\Lumen\Application(
     dirname(__DIR__)
 );
 
-// $app->withFacades();
+$app->withFacades();
 
 $app->withEloquent();
 
@@ -106,4 +106,9 @@ $app->router->group([
     require __DIR__.'/../app/Domain/News/routes.php';
 });
 
+$app->router->group([
+    'namespace' => 'App\Domain\Topic\Controllers',
+], function ($router) {
+    require __DIR__.'/../app/Domain/Topic/routes.php';
+});
 return $app;

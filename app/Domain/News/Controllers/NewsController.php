@@ -12,10 +12,16 @@ class NewsController extends Controller
         $this->service = $service;
     }
 
-    public function list()
+    public function list(Request $request)
     {
-        $list = $this->service->getNewsList();
-        return response()->json($list);
+        $news = $this->service->getNewsList($request);
+        return response()->json($news);
+    }
+
+    public function show($id)
+    {
+        $news = $this->service->getOneNews($id);
+        return response()->json($news);
     }
 
     public function add(Request $request)
@@ -24,12 +30,12 @@ class NewsController extends Controller
             'title' => 'required|min:5|max:255',
             'header' => 'required|min:5|max:255',
             'content' => 'required',
-            'status' => 'required|in:draft, deleted, publish',
+            'status' => 'required|in:draft,deleted,publish',
             'topics' => 'required|array',
         ]);
 
         $news = $this->service->insertOneNews($request);
-        return response()->json($news);
+        return response()->json($news, 201);
     }
 
     public function remove($id)
